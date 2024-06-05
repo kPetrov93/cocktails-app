@@ -1,0 +1,16 @@
+{
+  "name": "cocktails-app",
+  "version": "1.0.0",
+  "description": "Cocktails App",
+  "scripts": {
+    "start": "parcel *.html",
+    "build": "parcel build *.html"
+  },
+  "author": "Kristian Petrov",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.12.0",
+    "parcel": "^2.12.0",
+    "sass": "^1.77.4"
+  }
+}

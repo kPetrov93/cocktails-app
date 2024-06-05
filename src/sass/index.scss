@@ -1,0 +1,41 @@
+@import 'loader';
+
+body {
+    font-weight: bold;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.cocktails {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.cocktail-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.cocktail-item:hover {
+    transform: scale(1.05);
+}
+
+.cocktail-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.cocktail-item p {
+    padding: 10px;
+}
