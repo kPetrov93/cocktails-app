@@ -10,11 +10,13 @@ const fetchCocktailDetails = async function(id) {
         const res = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
         const data = await res.json();
 
-        if (!res.ok) throw new Error(`${data.message}`);
+        if (!res.ok || !data.drinks) {
+            throw new Error('Failed to fetch cocktails details. Please try again later.');
+        }
 
         renderCocktailDetails(data.drinks[0]);
     } catch (err) {
-        alert(err);
+        alert(`Error: ${err.message}`);
     } finally {
         loader.style.display = 'none'; // Hide the loader
     }

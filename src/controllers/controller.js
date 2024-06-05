@@ -10,14 +10,16 @@ const showCocktails = async function() {
         const res = await fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink');
         const data = await res.json();
 
-        if(!res.ok) throw new Error(`${data.message}`)
+        if (!res.ok || !data.drinks) {
+            throw new Error('Failed to fetch cocktails. Please try again later.');
+        }
         
         data.drinks.forEach(element => {
             renderCocktail(element);
         });
 
     } catch (err) {
-        alert(err);
+        alert(`Error: ${err.message}`);
     } finally {
         loader.style.display = 'none'; // Hide the loader
     }
