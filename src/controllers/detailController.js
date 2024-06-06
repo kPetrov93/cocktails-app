@@ -1,6 +1,6 @@
 'use strict'
 
-const cocktailDetailsContainer = document.querySelector(".cocktail-details");
+const cocktailDetailsContainer = document.querySelector(".cocktail-container");
 const loader = document.querySelector(".loader");
 
 const fetchCocktailDetails = async function(id) {
@@ -24,36 +24,40 @@ const fetchCocktailDetails = async function(id) {
 
 //Function to dynamically create the HTML for rendering the Details page
 const renderCocktailDetails = function (data) {
-    let ingredientsHtml = '<div class="ingredients-section"><h3>Ingredients</h3><ul>';
+    let ingredientsHtml = '<div><h2 class="ingredients-heading">Ingredients</h2><ul class="ingredients-section">';
 
-    // Loop through the possible ingredient fields
+    // Loop through the possible ingredient fields and measures
     for (let i = 1; i <= 15; i++) {
         const ingredient = data[`strIngredient${i}`];
-        if (ingredient) {
-            ingredientsHtml += `<li>${ingredient}</li>`;
+        const measure = data[`strMeasure${i}`];
+
+        if (ingredient && measure) {
+            ingredientsHtml += `<p class="ingredient-item">${measure} ${ingredient}</p>`;
         } else {
             break;
         }
     }
 
     ingredientsHtml += '</ul></div>';
-    //TODO: Fix the structure in order to look as design
+
     const html = `
+    <h1 class="cocktail-name">${data.strDrink}</h1>
     <div class="cocktail-detail">
-        <img src="${data.strDrinkThumb}" alt="${data.strDrink}">
-        <div>
-            <h2>${data.strDrink}</h2>
+        <div class="left-section">
+            <img class="cocktail-img" src="${data.strDrinkThumb}" alt="${data.strDrink}">
+            <div>
+                <h2>Categories</h2>
+                <p class="categories">${data.strCategory}</p>
+            </div>
+            <div>
+                <h2>Glass</h2>
+                <p class="glass">${data.strGlass}</p>
+            </div>
+        </div>
+        <div class="right-section">
             ${ingredientsHtml} <!-- Insert the ingredients HTML -->
-            <div class="categories-section">
-                <h3>Categories</h3>
-                <p>${data.strCategory}</p>
-            </div>
-            <div class="glass-section">
-                <h3>Glass</h3>
-                <p>${data.strGlass}</p>
-            </div>
             <div class="instructions-section">
-                <h3>Instructions</h3>
+                <h2>Instructions</h2>
                 <p>${data.strInstructions}</p>
             </div>
         </div>
@@ -68,5 +72,6 @@ const cocktailId = localStorage.getItem('cocktailId');
 if (cocktailId) {
     fetchCocktailDetails(cocktailId);
 } else {
-    console.log('No cocktail ID found in localStorage');
+    alert('No cocktail ID found in localStorage');
+    window.location.href = 'http://localhost:1234/';
 }
